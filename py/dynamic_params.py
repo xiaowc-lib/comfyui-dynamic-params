@@ -38,15 +38,15 @@ class DynamicParams:
         outputs = {}
         dynamic_params = []
 
-        for node in extra_pnginfo['workflow']['nodes']:
-            if node['id'] == int(unique_id):
+        for node in extra_pnginfo['workflow']['nodes']: # type: ignore
+            if node['id'] == int(unique_id): # type: ignore
                 outputs_valid = [output for output in node.get('outputs', []) if output.get('name','') != '' and output.get('type','') != '']
                 outputs = {output['name']: None for output in outputs_valid}
                 self.RETURN_TYPES = ByPassTypeTuple(out["type"] for out in outputs_valid)
                 self.RETURN_NAMES = tuple(name for name in outputs.keys())
                 dynamic_params = node['properties']['dynamic_params']
 
-        results: list[Any] = ['placeholder']
+        results: list[Any] = ['placeholder'] # type: ignore
         for param in dynamic_params:
             if not isinstance(param, dict):
                 continue
